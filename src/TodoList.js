@@ -18,8 +18,10 @@ class TodoList {
       if (this.items[i].date === searchDate) {
         searchByDate.push(this.items[i])
       }
-     return searchByDate
+     
     }
+
+    return searchByDate
   }
 
   show20() {
