@@ -2,20 +2,26 @@ class TodoList {
   constructor() {
     this.id = 0
     this.items = []
+    this.date = 0
   }
 
-  create(str) {
+  create(str,date) {
     this.id++
-    const item = { id: this.id, text: str, status: 'incomplete' }
+    const item = { id: this.id, text: str, status: 'incomplete', date: date}
     this.items.push(item)
     return item
   }
 
-<<<<<<< HEAD
-  
+  returnByDate (searchDate) {
+    let searchByDate =[]
+    for (let i = 0; i < this.items.length; i++) {
+      if (this.items[i].date === searchDate) {
+        searchByDate.push(this.items[i])
+      }
+     return searchByDate
+    }
+  }
 
-  showAll () {
-=======
   show20() {
     for (let i = 0; i < this.items.length; i++) {
       if (this.items[i].text.length >= 20) {
@@ -27,7 +33,6 @@ class TodoList {
   }
 
   showAll() {
->>>>>>> 34e1c6db6ca9d2a5cf9043427a95346bfd6370a1
     return this.items
   }
 

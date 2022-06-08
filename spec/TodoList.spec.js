@@ -12,11 +12,13 @@ describe('TodoList', () => {
     const expected = {
       id: 1,
       text: 'turn the heating on!',
-      status: 'incomplete'
+      status: 'incomplete',
+      date:25
+      
     }
 
     // execute
-    const result = todoList.create('turn the heating on!')
+    const result = todoList.create('turn the heating on!',25)
 
     // verify
     expect(result).toEqual(expected)
@@ -27,11 +29,12 @@ describe('TodoList', () => {
     const expected = {
       id: 1,
       text: 'turn the heating on!...',
-      status: 'incomplete'
+      status: 'incomplete',
+      date:25
     }
 
     // execute
-    todoList.create('turn the heating on!')
+    todoList.create('turn the heating on!',25)
     const result = todoList.show20()
 
     // verify
@@ -43,18 +46,20 @@ describe('TodoList', () => {
     const item1 = {
       id: 1,
       text: 'turn the heating on!',
-      status: 'incomplete'
+      status: 'incomplete',
+      date:25
     }
     const item2 = {
       id: 2,
       text: 'Do the washing up',
-      status: 'incomplete'
+      status: 'incomplete',
+      date:26
     }
     const expected = [item1, item2]
 
     // execute
-    todoList.create('turn the heating on!')
-    todoList.create('Do the washing up')
+    todoList.create('turn the heating on!',25)
+    todoList.create('Do the washing up',26)
 
     // verify
     expect(todoList.showAll()).toEqual(expected)
@@ -62,11 +67,12 @@ describe('TodoList', () => {
 
   it('sets item to be complete if found', () => {
     // set up
-    const item1 = todoList.create('turn the heating on!')
+    const item1 = todoList.create('turn the heating on!',25)
     const expected = {
       id: 1,
       text: 'turn the heating on!',
-      status: 'complete'
+      status: 'complete',
+      date:25
     }
 
     // execute
@@ -85,8 +91,8 @@ describe('TodoList', () => {
 
   it('gets incomplete items', () => {
     // set up
-    const item1 = todoList.create('turn the heating on!')
-    const item2 = todoList.create('Do the washing up')
+    const item1 = todoList.create('turn the heating on!',25)
+    const item2 = todoList.create('Do the washing up',26)
     todoList.setComplete(item1.id)
     const expected = [item2]
 
@@ -99,8 +105,8 @@ describe('TodoList', () => {
 
   it('gets complete items', () => {
     // set up
-    const item1 = todoList.create('turn the heating on!')
-    const item2 = todoList.create('Do the washing up')
+    const item1 = todoList.create('turn the heating on!',25)
+    const item2 = todoList.create('Do the washing up',26)
     todoList.setComplete(item1.id)
     const expected = [item1]
 
@@ -113,11 +119,12 @@ describe('TodoList', () => {
 
   it('finds item by id', () => {
     // set up
-    const item1 = todoList.create('turn the heating on!')
+    const item1 = todoList.create('turn the heating on!',25)
     const expected = {
       id: 1,
       text: 'turn the heating on!',
-      status: 'incomplete'
+      status: 'incomplete',
+      date:25
     }
 
     // execute
@@ -136,11 +143,12 @@ describe('TodoList', () => {
 
   it('deletes item by id', () => {
     // set up
-    const item1 = todoList.create('turn the heating on!')
+    const item1 = todoList.create('turn the heating on!',25)
     const expected = {
       id: 1,
       text: 'turn the heating on!',
-      status: 'incomplete'
+      status: 'incomplete',
+      date:25
     }
 
     // execute
@@ -157,4 +165,39 @@ describe('TodoList', () => {
     // execute, verify
     expect(() => todoList.deleteBy(1)).toThrowError('Item not found')
   })
+
+  it('search by date empty',()=>{
+    todoList.create('turn the heating on!',25)
+    const expected =[]
+    const result = todoList.returnByDate (24)
+
+    expect(result).toEqual(expected)
+  })
+
+  it ('search by date list',()=>{
+    todoList.create('turn the heating on!',25)
+    todoList.create('Do the washing up',25)
+
+    const expected= [{
+      id: 1,
+      text: 'turn the heating on!',
+      status: 'incomplete',
+      date:25
+    },
+    {
+      id: 2,
+      text: 'Do the washing up',
+      status: 'incomplete',
+      date:25
+    }
+
+    ]
+
+    const result = todoList.returnByDate(25)
+
+    expect(result).toEqual(expected)
+  })
+
+
+
 })
